@@ -38,4 +38,10 @@ class StartUpViewModel extends BaseViewModel {
       _navigationService.replaceWith(Routes.loginView);
     }
   }
+
+  Future<void> logout() async {
+    await userService.logout;
+    log.v('Successfully Loggeg out');
+    runStartupLogic();
+  }
 }

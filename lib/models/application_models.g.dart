@@ -6,7 +6,6 @@ part of 'application_models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-// ignore: non_constant_identifier_names
 _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
   return _$_User(
     id: json['id'] as String,
@@ -18,7 +17,6 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
   );
 }
 
-// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$_UserToJson(_$_User instance) => <String, dynamic>{
       'id': instance.id,
       'email': instance.email,

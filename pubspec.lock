@@ -42,7 +42,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.8.1"
+    version: "2.8.2"
   auth_buttons:
     dependency: "direct main"
     description:
@@ -133,7 +133,7 @@ packages:
       name: characters
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   charcode:
     dependency: transitive
     description:
@@ -401,29 +401,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
-  geocoding:
-    dependency: "direct main"
-    description:
-      name: geocoding
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
-  geocoding_platform_interface:
-    dependency: transitive
-    description:
-      name: geocoding_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
-  geodesy:
-    dependency: "direct main"
-    description:
-      name: geodesy
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.0-nullsafety.0"
   geolocator:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: geolocator
       url: "https://pub.dartlang.org"
@@ -478,6 +457,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
+  google_geocoding:
+    dependency: "direct main"
+    description:
+      name: google_geocoding
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   google_maps_webservice:
     dependency: transitive
     description:
@@ -576,13 +562,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.4"
-  latlong2:
-    dependency: transitive
-    description:
-      name: latlong2
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.8.1"
   lints:
     dependency: transitive
     description:
@@ -625,13 +604,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  lottie:
+    dependency: "direct main"
+    description:
+      name: lottie
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.1"
   matcher:
     dependency: transitive
     description:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.10"
+    version: "0.12.11"
   meta:
     dependency: transitive
     description:
@@ -895,7 +881,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.2"
+    version: "0.4.3"
   timing:
     dependency: transitive
     description:
@@ -986,7 +972,7 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   velocity_x:
     dependency: "direct main"
     description:

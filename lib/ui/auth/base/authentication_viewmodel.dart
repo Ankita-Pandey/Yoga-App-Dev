@@ -10,6 +10,7 @@ import 'package:yoga/services/user_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:yoga/ui/auth/login/otp_view.dart';
 
 abstract class AuthenticationViewModel extends FormViewModel {
   final log = getLogger('AuthenticationViewModel');
@@ -35,69 +36,9 @@ abstract class AuthenticationViewModel extends FormViewModel {
   }
 
   Future loginwithMobile(String mobile, BuildContext context) async {
-    FirebaseAuth _auth = FirebaseAuth.instance;
-    _auth.verifyPhoneNumber(
-      phoneNumber: mobile,
-      timeout: const Duration(seconds: 60),
-      verificationCompleted: (AuthCredential authCredential) {
-        _auth.signInWithCredential(authCredential).then((result) {
-          log.v('Result after signInWithCredential ${result.user}');
-          navigationService.clearStackAndShow(Routes.startUpView);
-        }).catchError((e) {
-          throw FirestoreApiException(message: '$e');
-        });
-      },
-      verificationFailed: (FirebaseAuthException exception) {
-        throw FirestoreApiException(message: '$exception');
-      },
-      codeSent: (String verificationId, [int? forceResendingToken]) {
-        final TextEditingController _codeController = TextEditingController();
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => AlertDialog(
-            title: const Text("Enter SMS Code"),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                TextField(
-                  controller: _codeController,
-                ),
-              ],
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text("Done"),
-                onPressed: () async {
-                  FirebaseAuth auth = FirebaseAuth.instance;
-                  final smsCode = _codeController.text.trim();
-                  final _credential = PhoneAuthProvider.credential(
-                    verificationId: verificationId,
-                    smsCode: smsCode,
-                  );
-
-                  auth
-                      .signInWithCredential(_credential)
-                      .then((UserCredential result) async {
-                    await handleAuthenticationResponse(
-                        FirebaseAuthenticationResult(user: result.user));
-                    log.v('Auth result is $result');
-                    navigationService.clearStackAndShow(successRoute);
-                  }).catchError((e) {
-                    throw FirestoreApiException(message: '$e');
-                  });
-                },
-              )
-            ],
-          ),
-        );
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {
-        verificationId = verificationId;
-        print(verificationId);
-        print("Timout");
-      },
-    );
+    navigationService.navigateToView(OtpView(
+      mobileno: mobile,
+    ));
   }
 
   Future<FirebaseAuthenticationResult> runAuthentication();

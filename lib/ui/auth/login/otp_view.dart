@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
+import 'package:yoga/ui/auth/login/login_viewmodel.dart';
 import 'package:yoga/ui/shared/ui_helpers.dart';
-import 'login_view.form.dart';
-import 'login_viewmodel.dart';
 
-@FormView(fields: [
-  FormTextField(name: 'mobileno'),
-])
-class LoginView extends StatelessWidget with $LoginView {
-  LoginView({Key? key}) : super(key: key);
+class OtpView extends StatelessWidget {
+  OtpView({Key? key, required this.mobileno}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
-
+  final String mobileno;
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LoginViewModel>.reactive(
-      onModelReady: (model) => listenToFormUpdated(model),
+      onModelReady: (model) {
+        model.runFirebaseLogin(mobileno, context);
+      },
       builder: (context, model, child) {
         return Scaffold(
           backgroundColor: Colors.black,
@@ -33,7 +30,7 @@ class LoginView extends StatelessWidget with $LoginView {
                     SizedBox(
                       height: 250,
                       child: Lottie.network(
-                        'https://assets2.lottiefiles.com/packages/lf20_oncjxjbd.json',
+                        'https://assets2.lottiefiles.com/packages/lf20_gysrp57x.json',
                       ),
                     ),
                     verticalSpaceRegular,
@@ -54,41 +51,21 @@ class LoginView extends StatelessWidget with $LoginView {
                             children: [
                               verticalSpaceSmall,
                               TextFormField(
+                                onChanged: (value) {
+                                  model.setOtp(value);
+                                },
                                 keyboardType: TextInputType.phone,
-                                controller: mobilenoController,
                                 style: const TextStyle(
                                   color: Colors.white,
                                 ),
                                 validator: (String? value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter mobile number';
-                                  }
-                                  if (value.length <= 9) {
-                                    return 'Please enter valid number';
-                                  }
-                                  if (value.length >= 11) {
-                                    return 'Please enter less number';
+                                    return 'Please enter your otp';
                                   }
                                   return null;
                                 },
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
-                                  prefix: SizedBox(
-                                    width: 50,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: const [
-                                        horizontalSpaceSmall,
-                                        Text(
-                                          '+91',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        horizontalSpaceTiny,
-                                      ],
-                                    ),
-                                  ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(25.0),
                                     borderSide: const BorderSide(
@@ -106,38 +83,43 @@ class LoginView extends StatelessWidget with $LoginView {
                                   labelStyle: TextStyle(
                                     color: Colors.white.withOpacity(0.8),
                                   ),
-                                  label: SizedBox(
-                                    width: 230,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: const [
-                                        Icon(
-                                          Icons.phone,
-                                          color: Colors.white,
-                                        ),
-                                        horizontalSpaceRegular,
-                                        Text('Enter your mobile number'),
-                                      ],
-                                    ),
-                                  ),
+                                  label: const Text('Enter Otp'),
                                 ),
                                 onFieldSubmitted: (value) {
                                   if (_formKey.currentState!.validate()) {
-                                    FocusScope.of(context).unfocus();
-                                    model.setBusy(true);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                            'Otp has been sent to this mobile number'),
-                                      ),
-                                    );
-                                    model.setBusy(false);
-                                    model.loginwithMobile(
-                                        '+91' + mobilenoController.text,
-                                        context);
+                                    if (model.otp.isEmpty) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Enter otp'),
+                                        ),
+                                      );
+                                    } else {
+                                      FocusScope.of(context).unfocus();
+                                      model.setBusy(true);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                              'Otp has been sent to this mobile number'),
+                                        ),
+                                      );
+
+                                      model.runOtpVerification();
+                                    }
                                   }
                                 },
+                              ),
+                              verticalSpaceSmall,
+                              InkWell(
+                                onTap: () {},
+                                child: Text(
+                                  'Resend in ${model.timeout}',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.amberAccent.shade200,
+                                  ),
+                                ),
                               ),
                               verticalSpaceRegular,
                             ],
@@ -150,16 +132,22 @@ class LoginView extends StatelessWidget with $LoginView {
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           FocusScope.of(context).unfocus();
-                          model.setBusy(true);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                  'Otp has been sent to this mobile number'),
-                            ),
-                          );
-                          model.setBusy(false);
-                          model.loginwithMobile(
-                              '+91' + mobilenoController.text, context);
+                          if (model.otp.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Enter otp'),
+                              ),
+                            );
+                          } else {
+                            model.setBusy(true);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    'Otp has been sent to this mobile number'),
+                              ),
+                            );
+                            model.runOtpVerification();
+                          }
                         }
                       },
                       child: Container(
@@ -182,7 +170,7 @@ class LoginView extends StatelessWidget with $LoginView {
                                   color: Colors.white,
                                 )
                               : const Text(
-                                  'Login',
+                                  'Submit',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,
