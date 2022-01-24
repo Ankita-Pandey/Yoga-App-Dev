@@ -25,6 +25,7 @@ class _$UserTearOff {
       String? email,
       String? name,
       String? pushToken,
+      bool? onBoarding,
       String? photourl,
       String? mobileNo}) {
     return _User(
@@ -32,6 +33,7 @@ class _$UserTearOff {
       email: email,
       name: name,
       pushToken: pushToken,
+      onBoarding: onBoarding,
       photourl: photourl,
       mobileNo: mobileNo,
     );
@@ -51,6 +53,7 @@ mixin _$User {
   String? get email => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get pushToken => throw _privateConstructorUsedError;
+  bool? get onBoarding => throw _privateConstructorUsedError;
   String? get photourl => throw _privateConstructorUsedError;
   String? get mobileNo => throw _privateConstructorUsedError;
 
@@ -68,6 +71,7 @@ abstract class $UserCopyWith<$Res> {
       String? email,
       String? name,
       String? pushToken,
+      bool? onBoarding,
       String? photourl,
       String? mobileNo});
 }
@@ -86,6 +90,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object? email = freezed,
     Object? name = freezed,
     Object? pushToken = freezed,
+    Object? onBoarding = freezed,
     Object? photourl = freezed,
     Object? mobileNo = freezed,
   }) {
@@ -106,6 +111,10 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _value.pushToken
           : pushToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      onBoarding: onBoarding == freezed
+          ? _value.onBoarding
+          : onBoarding // ignore: cast_nullable_to_non_nullable
+              as bool?,
       photourl: photourl == freezed
           ? _value.photourl
           : photourl // ignore: cast_nullable_to_non_nullable
@@ -128,6 +137,7 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String? email,
       String? name,
       String? pushToken,
+      bool? onBoarding,
       String? photourl,
       String? mobileNo});
 }
@@ -147,6 +157,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object? email = freezed,
     Object? name = freezed,
     Object? pushToken = freezed,
+    Object? onBoarding = freezed,
     Object? photourl = freezed,
     Object? mobileNo = freezed,
   }) {
@@ -167,6 +178,10 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.pushToken
           : pushToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      onBoarding: onBoarding == freezed
+          ? _value.onBoarding
+          : onBoarding // ignore: cast_nullable_to_non_nullable
+              as bool?,
       photourl: photourl == freezed
           ? _value.photourl
           : photourl // ignore: cast_nullable_to_non_nullable
@@ -187,6 +202,7 @@ class _$_User extends _User {
       this.email,
       this.name,
       this.pushToken,
+      this.onBoarding,
       this.photourl,
       this.mobileNo})
       : super._();
@@ -203,13 +219,15 @@ class _$_User extends _User {
   @override
   final String? pushToken;
   @override
+  final bool? onBoarding;
+  @override
   final String? photourl;
   @override
   final String? mobileNo;
 
   @override
   String toString() {
-    return 'User(id: $id, email: $email, name: $name, pushToken: $pushToken, photourl: $photourl, mobileNo: $mobileNo)';
+    return 'User(id: $id, email: $email, name: $name, pushToken: $pushToken, onBoarding: $onBoarding, photourl: $photourl, mobileNo: $mobileNo)';
   }
 
   @override
@@ -225,6 +243,9 @@ class _$_User extends _User {
             (identical(other.pushToken, pushToken) ||
                 const DeepCollectionEquality()
                     .equals(other.pushToken, pushToken)) &&
+            (identical(other.onBoarding, onBoarding) ||
+                const DeepCollectionEquality()
+                    .equals(other.onBoarding, onBoarding)) &&
             (identical(other.photourl, photourl) ||
                 const DeepCollectionEquality()
                     .equals(other.photourl, photourl)) &&
@@ -240,6 +261,7 @@ class _$_User extends _User {
       const DeepCollectionEquality().hash(email) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(pushToken) ^
+      const DeepCollectionEquality().hash(onBoarding) ^
       const DeepCollectionEquality().hash(photourl) ^
       const DeepCollectionEquality().hash(mobileNo);
 
@@ -260,6 +282,7 @@ abstract class _User extends User {
       String? email,
       String? name,
       String? pushToken,
+      bool? onBoarding,
       String? photourl,
       String? mobileNo}) = _$_User;
   _User._() : super._();
@@ -274,6 +297,8 @@ abstract class _User extends User {
   String? get name => throw _privateConstructorUsedError;
   @override
   String? get pushToken => throw _privateConstructorUsedError;
+  @override
+  bool? get onBoarding => throw _privateConstructorUsedError;
   @override
   String? get photourl => throw _privateConstructorUsedError;
   @override

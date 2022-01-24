@@ -12,6 +12,7 @@ class User with _$User {
     String? email,
     String? name,
     String? pushToken,
+    bool? onBoarding,
     String? photourl,
     String? mobileNo,
   }) = _User;

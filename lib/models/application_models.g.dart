@@ -12,6 +12,7 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
     email: json['email'] as String?,
     name: json['name'] as String?,
     pushToken: json['pushToken'] as String?,
+    onBoarding: json['onBoarding'] as bool?,
     photourl: json['photourl'] as String?,
     mobileNo: json['mobileNo'] as String?,
   );
@@ -22,6 +23,7 @@ Map<String, dynamic> _$_$_UserToJson(_$_User instance) => <String, dynamic>{
       'email': instance.email,
       'name': instance.name,
       'pushToken': instance.pushToken,
+      'onBoarding': instance.onBoarding,
       'photourl': instance.photourl,
       'mobileNo': instance.mobileNo,
     };

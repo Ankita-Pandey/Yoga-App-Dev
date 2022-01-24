@@ -15,7 +15,7 @@ class UserService {
   final navigationService = locator<NavigationService>();
   User? _currentUser;
 
-  User get currentUser => _currentUser!;
+  User? get currentUser => _currentUser;
 
   bool get hasLoggedInUser => _firebaseAuthenticationService.hasUser;
 

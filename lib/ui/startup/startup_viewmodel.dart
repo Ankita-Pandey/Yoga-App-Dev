@@ -21,17 +21,25 @@ class StartUpViewModel extends BaseViewModel {
       log.v('We have a user session on disk. Sync the user profile ...');
       await userService.syncUserAccount();
       final currentUser = userService.currentUser;
-      userId = currentUser.id;
-      log.v('User sync complete. User profile');
-      if (userService.currentUser.pushToken != _notifyService.pushToken) {
-        firestoreApi.updateUser(
-          data: {
-            'pushToken': _notifyService.pushToken,
-          },
-          user: userService.currentUser.id,
-        );
+      if (currentUser == null) {
+        log.v('No user on disk, navigate to the LoginView');
+        setBusy(false);
+        _navigationService.replaceWith(Routes.loginView);
+      } else {
+        userId = currentUser.id;
+        log.v('User sync complete. User profile');
+
+        if (userService.currentUser!.pushToken != _notifyService.pushToken) {
+          firestoreApi.updateUser(
+            data: {
+              'pushToken': _notifyService.pushToken,
+            },
+            user: userService.currentUser!.id,
+          );
+        }
+        if (!userService.currentUser!.onBoarding!) {}
+        setBusy(false);
       }
-      setBusy(false);
     } else {
       log.v('No user on disk, navigate to the LoginView');
       setBusy(false);

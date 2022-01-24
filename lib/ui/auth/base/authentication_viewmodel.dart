@@ -88,6 +88,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
                 'https://img.icons8.com/color/48/000000/gender-neutral-user.png',
             pushToken: token,
             mobileNo: '',
+            onBoarding: false,
           ),
         );
       }
