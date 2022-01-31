@@ -7,6 +7,7 @@ import 'package:yoga/app/app.logger.dart';
 import 'package:yoga/app/app.router.dart';
 import 'package:yoga/services/push_notification_service.dart';
 import 'package:yoga/services/user_service.dart';
+import 'package:yoga/ui/onBoarding/onboarding_view.dart';
 
 class StartUpViewModel extends BaseViewModel {
   final log = getLogger('StartUpViewModel');
@@ -26,19 +27,25 @@ class StartUpViewModel extends BaseViewModel {
         setBusy(false);
         _navigationService.replaceWith(Routes.loginView);
       } else {
-        userId = currentUser.id;
-        log.v('User sync complete. User profile');
+        if (!currentUser.onBoarding!) {
+          log.v('New user');
+          setBusy(false);
+          _navigationService.clearTillFirstAndShowView(const OnBoardingView());
+        } else {
+          userId = currentUser.id;
+          log.v('User sync complete. User profile');
 
-        if (userService.currentUser!.pushToken != _notifyService.pushToken) {
-          firestoreApi.updateUser(
-            data: {
-              'pushToken': _notifyService.pushToken,
-            },
-            user: userService.currentUser!.id,
-          );
+          if (userService.currentUser!.pushToken != _notifyService.pushToken) {
+            firestoreApi.updateUser(
+              data: {
+                'pushToken': _notifyService.pushToken,
+              },
+              user: userService.currentUser!.id,
+            );
+          }
+          if (!userService.currentUser!.onBoarding!) {}
+          setBusy(false);
         }
-        if (!userService.currentUser!.onBoarding!) {}
-        setBusy(false);
       }
     } else {
       log.v('No user on disk, navigate to the LoginView');
