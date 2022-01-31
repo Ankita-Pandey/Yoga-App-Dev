@@ -90,6 +90,46 @@ class OnBoardingView extends StatelessWidget {
             ),
           ),
         ),
+        bottomNavigationBar: Container(
+          height: 60,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  height: 50,
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color.fromARGB(255, 191, 90, 242),
+                        Color.fromARGB(255, 94, 92, 230),
+                      ],
+                    ),
+                  ),
+                  child: Center(
+                    child: model.isBusy
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : const Text(
+                            'Login',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                  ),
+                ),
+              ),
+              verticalSpaceTiny,
+            ],
+          ),
+        ),
       ),
       viewModelBuilder: () => OnBoardingViewModel(),
     );
