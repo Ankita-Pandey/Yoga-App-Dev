@@ -79,6 +79,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
       final user = authResult.user!;
       String token = await pushNotification.getPushNotificationToken();
       if (token.isNotEmpty) {
+        log.wtf(user.uid);
         await userService.syncOrCreateUserAccount(
           user: model.User(
             id: user.uid,

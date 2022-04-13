@@ -558,7 +558,7 @@ class LoadingScrren extends StatelessWidget {
       children: const [
         Center(
           child: CircularProgressIndicator(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ],

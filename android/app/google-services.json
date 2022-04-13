@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "529617494799-caipo6vba31ttjr2n1dklopttd0ld2p2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yogiction.yoga",
+            "certificate_hash": "a1aae9801b087685e890b2c9f8ed43c2cda647ef"
+          }
+        },
+        {
           "client_id": "529617494799-r5uf138vrkt3kqpu633qgma5bjr0klgp.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -37,6 +45,13 @@
             {
               "client_id": "529617494799-r5uf138vrkt3kqpu633qgma5bjr0klgp.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "529617494799-9n6m2a9l8iremf95kook1n4dk7bhbi94.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.yogiction.yoga"
+              }
             }
           ]
         }

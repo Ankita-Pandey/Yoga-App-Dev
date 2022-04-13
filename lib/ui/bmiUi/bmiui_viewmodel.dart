@@ -51,8 +51,9 @@ class BmiUiViewModel extends BaseViewModel {
     log.wtf(height);
     log.wtf(weight);
     log.wtf(age);
-    var totalHeight = (height * height);
-    final bmi = weight / totalHeight;
+    var meterHeight = (height / 100);
+    var totalHeight = (meterHeight * meterHeight);
+    final bmi = weight / meterHeight;
     log.wtf(totalHeight);
     log.wtf(bmi);
     if (bmi <= 18.5) {
@@ -92,6 +93,8 @@ class BmiUiViewModel extends BaseViewModel {
       },
       user: userService.currentUser!.id,
     );
-    _navigationService.replaceWithTransition(const MedicalHistoryView());
+    _navigationService.replaceWithTransition(MedicalHistoryView(
+      bmi: mbitype,
+    ));
   }
 }

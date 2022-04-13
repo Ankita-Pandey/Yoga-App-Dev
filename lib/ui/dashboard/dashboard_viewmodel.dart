@@ -5,7 +5,6 @@ import 'package:yoga/app/app.locator.dart';
 import 'package:yoga/app/app.logger.dart';
 import 'package:yoga/app/app.router.dart';
 import 'package:yoga/services/user_service.dart';
-import 'package:yoga/ui/startup/startup_view.dart';
 
 class DashboardViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();

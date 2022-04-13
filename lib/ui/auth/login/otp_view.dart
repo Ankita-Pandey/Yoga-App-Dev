@@ -21,167 +21,174 @@ class OtpView extends StatelessWidget {
             child: SafeArea(
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    SizedBox(
-                      height: screenHeight(context) / 4,
-                    ),
-                    SizedBox(
-                      height: 250,
-                      child: Lottie.network(
-                        'https://assets2.lottiefiles.com/packages/lf20_gysrp57x.json',
-                      ),
-                    ),
-                    verticalSpaceRegular,
-                    Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      color: const Color.fromRGBO(28, 28, 30, 1),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 10,
-                        ),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              verticalSpaceSmall,
-                              TextFormField(
-                                onChanged: (value) {
-                                  model.setOtp(value);
-                                },
-                                keyboardType: TextInputType.phone,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                ),
-                                validator: (String? value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter your otp';
-                                  }
-                                  return null;
-                                },
-                                textInputAction: TextInputAction.next,
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(25.0),
-                                    borderSide: const BorderSide(
-                                      color: Color.fromARGB(255, 191, 90, 242),
-                                      width: 1.5,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(25.0),
-                                    borderSide: const BorderSide(
-                                      color: Color.fromARGB(255, 191, 90, 242),
-                                      width: 2,
-                                    ),
-                                  ),
-                                  labelStyle: TextStyle(
-                                    color: Colors.white.withOpacity(0.8),
-                                  ),
-                                  label: const Text('Enter Otp'),
-                                ),
-                                onFieldSubmitted: (value) {
-                                  if (_formKey.currentState!.validate()) {
-                                    if (model.otp.isEmpty) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text('Enter otp'),
+                child: model.isBusy
+                    ? LoadingScrren()
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            height: screenHeight(context) / 4,
+                          ),
+                          SizedBox(
+                            height: 250,
+                            child: Lottie.network(
+                              'https://assets2.lottiefiles.com/packages/lf20_gysrp57x.json',
+                            ),
+                          ),
+                          verticalSpaceRegular,
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            color: const Color.fromRGBO(28, 28, 30, 1),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 10,
+                              ),
+                              child: Form(
+                                key: _formKey,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    verticalSpaceSmall,
+                                    TextFormField(
+                                      onChanged: (value) {
+                                        model.setOtp(value);
+                                      },
+                                      keyboardType: TextInputType.phone,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                      validator: (String? value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter your otp';
+                                        }
+                                        return null;
+                                      },
+                                      textInputAction: TextInputAction.next,
+                                      decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(25.0),
+                                          borderSide: const BorderSide(
+                                            color: Color.fromARGB(
+                                                255, 191, 90, 242),
+                                            width: 1.5,
+                                          ),
                                         ),
-                                      );
-                                    } else {
-                                      FocusScope.of(context).unfocus();
-                                      model.setBusy(true);
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                              'Otp has been sent to this mobile number'),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(25.0),
+                                          borderSide: const BorderSide(
+                                            color: Color.fromARGB(
+                                                255, 191, 90, 242),
+                                            width: 2,
+                                          ),
                                         ),
-                                      );
+                                        labelStyle: TextStyle(
+                                          color: Colors.white.withOpacity(0.8),
+                                        ),
+                                        label: const Text('Enter Otp'),
+                                      ),
+                                      onFieldSubmitted: (value) {
+                                        if (_formKey.currentState!.validate()) {
+                                          if (model.otp.isEmpty) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content: Text('Enter otp'),
+                                              ),
+                                            );
+                                          } else {
+                                            FocusScope.of(context).unfocus();
+                                            model.setBusy(true);
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content: Text(
+                                                    'Otp has been sent to this mobile number'),
+                                              ),
+                                            );
 
-                                      model.runOtpVerification();
-                                    }
-                                  }
-                                },
-                              ),
-                              verticalSpaceSmall,
-                              InkWell(
-                                onTap: () {},
-                                child: Text(
-                                  'Resend in ${model.timeout}',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.amberAccent.shade200,
-                                  ),
+                                            model.runOtpVerification();
+                                          }
+                                        }
+                                      },
+                                    ),
+                                    verticalSpaceSmall,
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Text(
+                                        'Resend in ${model.timeout}',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.amberAccent.shade200,
+                                        ),
+                                      ),
+                                    ),
+                                    verticalSpaceRegular,
+                                  ],
                                 ),
                               ),
-                              verticalSpaceRegular,
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                    verticalSpaceSmall,
-                    GestureDetector(
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          FocusScope.of(context).unfocus();
-                          if (model.otp.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Enter otp'),
-                              ),
-                            );
-                          } else {
-                            model.setBusy(true);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                    'Otp has been sent to this mobile number'),
-                              ),
-                            );
-                            model.runOtpVerification();
-                          }
-                        }
-                      },
-                      child: Container(
-                        height: 50,
-                        margin: const EdgeInsets.symmetric(horizontal: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          gradient: const LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Color.fromARGB(255, 191, 90, 242),
-                              Color.fromARGB(255, 94, 92, 230),
-                            ],
-                          ),
-                        ),
-                        child: Center(
-                          child: model.isBusy
-                              ? const CircularProgressIndicator(
-                                  color: Colors.white,
-                                )
-                              : const Text(
-                                  'Submit',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                  ),
+                          verticalSpaceSmall,
+                          GestureDetector(
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                FocusScope.of(context).unfocus();
+                                if (model.otp.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Enter otp'),
+                                    ),
+                                  );
+                                } else {
+                                  model.setBusy(true);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                          'Otp has been sent to this mobile number'),
+                                    ),
+                                  );
+                                  model.runOtpVerification();
+                                }
+                              }
+                            },
+                            child: Container(
+                              height: 50,
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                gradient: const LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Color.fromARGB(255, 191, 90, 242),
+                                    Color.fromARGB(255, 94, 92, 230),
+                                  ],
                                 ),
-                        ),
+                              ),
+                              child: Center(
+                                child: model.isBusy
+                                    ? const CircularProgressIndicator(
+                                        color: Colors.white,
+                                      )
+                                    : const Text(
+                                        'Submit',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                              ),
+                            ),
+                          ),
+                          verticalSpaceLarge,
+                        ],
                       ),
-                    ),
-                    verticalSpaceLarge,
-                  ],
-                ),
               ),
             ),
           ),

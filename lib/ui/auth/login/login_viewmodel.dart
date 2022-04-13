@@ -86,6 +86,8 @@ class LoginViewModel extends AuthenticationViewModel {
   }
 
   runFirebaseLogin(String number, BuildContext context) {
+    setBusy(true);
+    notifyListeners();
     startTimer();
     FirebaseAuth _auth = FirebaseAuth.instance;
     _auth.verifyPhoneNumber(
@@ -104,6 +106,8 @@ class LoginViewModel extends AuthenticationViewModel {
       },
       codeSent: (String verificationId, [int? forceResendingToken]) {
         log.wtf('message');
+        setBusy(false);
+        notifyListeners();
         setVerificationId(verificationId);
       },
       codeAutoRetrievalTimeout: (String verificationId) {

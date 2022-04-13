@@ -5,7 +5,8 @@ import 'package:yoga/ui/medicalhistory/medicalhistory_viewmodel.dart';
 import 'package:yoga/ui/shared/ui_helpers.dart';
 
 class MedicalHistoryView extends StatefulWidget {
-  const MedicalHistoryView({Key? key}) : super(key: key);
+  final String bmi;
+  MedicalHistoryView({Key? key, required this.bmi}) : super(key: key);
 
   @override
   State<MedicalHistoryView> createState() => _MedicalHistoryViewState();
@@ -31,6 +32,33 @@ class _MedicalHistoryViewState extends State<MedicalHistoryView> {
               children: [
                 verticalSpaceRegular,
                 verticalSpaceRegular,
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    // ignore: prefer_const_literals_to_create_immutables
+                    children: [
+                      const Text(
+                        'Your bmi is:',
+                        style: TextStyle(
+                          fontSize: 38,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        widget.bmi,
+                        style: const TextStyle(
+                          fontSize: 38,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                verticalSpaceMedium,
                 Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 20),

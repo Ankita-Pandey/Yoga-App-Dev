@@ -102,6 +102,13 @@ class BmiUiView extends StatelessWidget {
                     onTap: () {
                       print('object');
                     },
+                    onChanged: (value) {
+                      print(value);
+                      var myDouble = double.parse(value);
+                      assert(myDouble is double);
+                      print(myDouble);
+                      model.setAge(myDouble);
+                    },
                     onFieldSubmitted: (value) {
                       print(value);
                       var myDouble = double.parse(value);
@@ -147,10 +154,17 @@ class BmiUiView extends StatelessWidget {
                       labelStyle: TextStyle(
                         color: Colors.white.withOpacity(0.8),
                       ),
-                      label: Text('Enter your weight in KG'),
+                      label: const Text('Enter your weight in KG'),
                     ),
                     onTap: () {
                       print('object');
+                    },
+                    onChanged: (String value) {
+                      print(value);
+                      var myDouble = double.parse(value);
+                      assert(myDouble is double);
+                      print(myDouble);
+                      model.setWeight(myDouble);
                     },
                     onFieldSubmitted: (value) {
                       print(value);
@@ -197,10 +211,16 @@ class BmiUiView extends StatelessWidget {
                       labelStyle: TextStyle(
                         color: Colors.white.withOpacity(0.8),
                       ),
-                      label: Text('Enter your height in meter'),
+                      label: Text('Enter your height in cms'),
                     ),
                     onTap: () {
                       print('object');
+                    },
+                    onChanged: (String value) {
+                      var myDouble = double.parse(value);
+                      assert(myDouble is double);
+                      print(myDouble);
+                      model.setHeight(myDouble);
                     },
                     onFieldSubmitted: (value) {
                       var myDouble = double.parse(value);
